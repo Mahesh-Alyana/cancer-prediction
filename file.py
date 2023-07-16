@@ -1,7 +1,7 @@
 import requests
 
 # Set the API endpoint URL
-url = 'http://127.0.0.1:8000/'
+url = 'https://cancer-prediction-9k1b.onrender.com/'
 
 # Set the path to the image file you want to upload
 image_path = '/Users/maheshalyana/Documents/Documents - Mahesh का MacBook Air/college/cancer prediction/SegmentationAPI/testimg.jpg'

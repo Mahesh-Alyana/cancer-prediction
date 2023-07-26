@@ -2,9 +2,9 @@ import io
 from fastapi.responses import FileResponse, StreamingResponse
 from werkzeug.utils import secure_filename
 import json
-import tensorflow as tf
 import json 
 import os
+from PIL import Image
 from model_definition import SegmentationModel 
 import json
 from matplotlib import pyplot as plt
@@ -46,7 +46,7 @@ model.load_weights('cancer_weights.h5')
 @app.post('/')
 async def scoring_endpoint(data: UploadFile = File(...)): 
     image_bytes = await data.read()
-    image = tf.io.decode_image(image_bytes) 
+    image = Image.open(io.BytesIO(image_bytes))
     yhat = model.predict(tf.expand_dims(image, axis=0))
     yhat = np.array(yhat.tolist())
     yhat = np.squeeze(np.where(yhat > 0.3, 1.0, 0.0))

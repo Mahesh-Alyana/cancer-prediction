@@ -47,7 +47,13 @@ model.load_weights('cancer_weights.h5')
 async def scoring_endpoint(data: UploadFile = File(...)): 
     image_bytes = await data.read()
     image = Image.open(io.BytesIO(image_bytes))
-    yhat = model.predict(tf.expand_dims(image, axis=0))
+    image_array = np.array(image)
+
+    # Expand the dimensions to make it suitable for the model input
+    image_array = np.expand_dims(image_array, axis=0)
+
+    # Make the prediction using numpy instead of TensorFlow
+    yhat = model.predict(image_array)
     yhat = np.array(yhat.tolist())
     yhat = np.squeeze(np.where(yhat > 0.3, 1.0, 0.0))
     fig, ax = plt.subplots(1,7, figsize=(20,10))  

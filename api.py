@@ -1,7 +1,6 @@
 import io
 from fastapi.responses import FileResponse, StreamingResponse
 from werkzeug.utils import secure_filename
-import pandas as pd
 import json
 import tensorflow as tf
 import json 

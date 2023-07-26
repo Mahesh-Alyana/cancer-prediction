@@ -31,9 +31,19 @@ import tensorflow as tf
 import json 
 from model_definition import SegmentationModel 
 
-app = FastAPI() 
+from fastapi.middleware.cors import CORSMiddleware
 
+app = FastAPI()
 
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 model = SegmentationModel().model
 model.load_weights('cancer_weights.h5') 
 
